@@ -4,53 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/table.css">
+
     <title>Teste - Navita</title>
   </head>
 
   <body>
-    <!-- Tabela de Marcas -->
-    <table>
-      <th>
-        <tr>
-          <td>
-            Nome
-          </td>
-        </tr>
-      </th>
+    <v-app id="app">
+      <n-layout>
+        <n-table 
+          title="Marcas" 
+          header="Marca" 
+          :items="brands"
+          :loading="loadingBrands"
+          :loading-failed="getBrandsFailed"
+          @show-models="getModel"
+          @hide-models="resetModels"
+        ></n-table>
 
-      <td>
-        <tr>
-          <td>
-            Teste 1
-          </td>
-        </tr>
-      </td>
-    </table>
-
-
-    <!-- Tabela de Modelos -->
-    <table>
-      <th>
-        <tr>
-          <td>
-            Nome
-          </td>
-        </tr>
-      </th>
-
-      <td>
-        <tr>
-          <td>
-            Teste 2
-          </td>
-        </tr>
-      </td>
-    </table>
+        <n-table v-if="models.length > 0"
+          title="Modelos" 
+          header="Modelo" 
+          :items="models"
+          :loading="loadingModels"
+          :loading-failed="getModelsFailed"
+        ></n-table>
+      </n-layout>
+    </v-app>
 
     <!-- Scripts -->
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="module" src="./main.js"></script>
   </body>
 </html>
