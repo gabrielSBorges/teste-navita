@@ -1,0 +1,26 @@
+.table-card {
+  box-shadow: 0 0 10px 3px rgba(58, 59, 69, .15);
+  border-radius: 4px !important;
+}
+
+.table-title {
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+
+table {
+  width: 100%
+}
+
+td, th {
+  padding: 12px;
+}
+
+.table-header {
+  width: 50%;
+}
+
+.btn-models {
+  cursor: pointer;
+  user-select: none;
+}

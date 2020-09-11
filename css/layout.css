@@ -1,0 +1,7 @@
+#app {
+  background-color: var(--v-background-base);
+}
+
+#header {
+  box-shadow: 0 0 10px 3px rgba(58, 59, 69, .15);
+}
