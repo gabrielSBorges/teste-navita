@@ -3,52 +3,102 @@ export default {
     title: { type: String, required: true },
     header: { type: String, required: true },
     items: { type: Array, required: true },
+    totalItems: { type: Number, required: true },
+    rows: { type: Number, required: true },
+    loading: { type: Boolean, required: true },
+    loadingFailed: { type: Boolean, required: true },
   },
   data() {
     return {
-      selectedItem: null
+      selectedItem: null,
+      page: 1
+    }
+  },
+  watch: {
+    page(v) {
+      this.$emit('change-page', v)
+    }
+  },
+  computed: {
+    totalPages() {
+      const totalItems = this.totalItems
+      const rows = this.rows
+
+      if (totalItems < rows) {
+        return 0
+      }
+      else {
+        return Math.ceil(totalItems / rows)
+      }
     }
   },
   methods: {
-    selectItem(id) {
-      if (id !== this.selectItem) {
-        this.$emit('show-models', id)
-        this.selectedItem = id
-      }
-      else {
-        this.$emit('hide-models')
-      }
+    selectItem(id, name) {
+      this.$emit('show-models', id, name)
+      this.selectedItem = id
     },
 
-    btnColor(id) {
-      return this.selectItem === id ? 'primary--text' : 'secondary--text'
-    }
+    deselectItem() {
+      this.$emit('hide-models')
+      this.selectedItem = null
+    },
   },
   template: /*html*/`  
-      <v-card outlined class="table-card my-5">
-        <v-card outlined color="normal" class="table-title pa-3">
-          <span class="table-title secondary--text">{{ title }}</span>
-        </v-card>
-        
-        <table class="n-table">
-          <!-- Header -->
-          <tr>
-            <th class="text-left table-header">{{ header }}</th>
+    <v-card outlined class="table-card my-5">
+      <!-- Cabeçalho -->
+      <v-card outlined color="normal" class="pa-3">
+        <span class="table-title secondary--text">{{ title }}</span>
+      </v-card>
 
-            <th></th>
-          </tr>
+      <v-divider></v-divider>
+      
+      <!-- Tabela -->
+      <v-row no-gutters class="px-10 py-8">
+        <!-- Loading -->
+        <v-col cols="12" v-if="loading">
+          <div class="text-center">
+            <v-progress-circular indeterminate color="primary"></v-progress-circular>
+          </div>
+        </v-col>
+
+        <!-- Erro -->
+        <v-col cols="12" v-else-if="loadingFailed">
+          <div class="text-center red--text">
+            Ocorreu um erro ao carregar o conteúdo.
+          </div>
+        </v-col>
+
+        <v-col cols="12" v-else>
+          <!-- Header -->
+          <v-row class="table-header">
+            <v-col cols="12">{{ header }}</v-col>
+          </v-row>
     
           <!-- Body -->
-          <tr v-for="(item, i) in items" :key="i">
-            <td>
+          <v-row class="table-body" v-for="(item, i) in items" :key="i">
+            <v-col cols="4">
               {{ item.nome }}
-            </td>
+            </v-col>
+  
+            <v-col cols="4" class="text-center" v-if="item.codigo">
+              <span @click="selectItem(item.codigo, item.nome)" class="btn-models secondary--text" v-if="selectedItem !== item.codigo">Ver Modelos</span>
 
-            <td v-if="item.codigo">
-              <span @click="selectItem(item.codigo)" class="btn-models secondary--text">Ver Modelos</span>
-            </td>
-          </tr>
-        </table>
+              <span @click="deselectItem" class="btn-models primary--text" v-else>Ocultar Modelos</span>              
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+
+      <v-divider></v-divider>
+
+      <!-- Paginação -->
+      <v-card outlined color="normal" class="table-footer text-center pa-3" v-show="totalPages > 0">
+        <v-pagination
+          v-model="page"
+          :length="totalPages"
+          total-visible="8"
+        ></v-pagination>
       </v-card>
+    </v-card>
   `
 }

@@ -5,8 +5,8 @@ export default {
         <span class="primary--text ml-3">Navita</span>
       </v-app-bar>
   
-      <v-main>
-        <v-container>
+      <v-main class="mb-12">
+        <v-container class="pt-5">
           <slot />
         </v-container>
       </v-main>

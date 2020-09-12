@@ -10,11 +10,12 @@ new Vue({
           primary: '#1CC88A',
           secondary: '#4E73DF',
           normal: '#F8F9FC',
-					background: '#F7F8FB',
+          background: '#F7F8FB',
+          text: '#5A5C69'
 				}
 			},
 			options: {
-					customProperties: true
+        customProperties: true
 			},
 		},
 	}),
@@ -30,9 +31,25 @@ new Vue({
       getBrandsFailed: false,
       getModelsFailed: false,
 
-      selectedBrand: '',
+      brandsPage: 1,
+      modelsPage: 1,
+
+      rowsPerPage: 5,
+
       brands: [],
-      models: []
+      selectedBrand: '',
+
+      models: [],
+      showModels: false,
+    }
+  },
+  computed: {
+    brandsContent() {
+      return this.setPageContent(this.brands, this.brandsPage, 'loadingBrands')
+    },
+
+    modelsContent() {
+      return this.setPageContent(this.models, this.modelsPage, 'loadingModels')
     }
   },
   methods: {
@@ -46,12 +63,14 @@ new Vue({
       .catch(error => {
         this.getBrandsFailed = true
       })
-
-      this.loadingBrands = false
     },
 
-    getModel(id) {
+    getModel(id, name) {
       this.loadingModels = true
+
+      this.showModels = true
+
+      this.selectedBrand = name
 
       this.models = []
 
@@ -66,13 +85,26 @@ new Vue({
       .catch(error => {
         this.getModelsFailed = true
       })
-
-      this.loadingModels = false
     },
 
-    resetModels() {
+    hideModels() {
+      this.showModels = false
       this.models = []
       this.getModelsFailed = false
+    },
+
+    setPageContent(array, page, loading) {
+      let content = array.slice(0)
+
+      if (content.length > 0) {
+        content = content.slice((page * this.rowsPerPage) - this.rowsPerPage, page * this.rowsPerPage)
+      }
+
+      console.log(loading)
+
+      this[loading] = false
+
+      return content
     }
   },
   mounted() {

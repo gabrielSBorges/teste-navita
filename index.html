@@ -17,24 +17,32 @@
   <body>
     <v-app id="app">
       <n-layout>
-        <span class="text-h5">Veículos</span>
+        <span class="text-h5 text--text">Veículos</span>
 
+        <!-- Tabela Marcas -->
         <n-table 
           title="Marcas" 
           header="Marca" 
-          :items="brands"
+          :items="brandsContent"
+          :rows="rowsPerPage"
+          :total-items="brands.length"
           :loading="loadingBrands"
           :loading-failed="getBrandsFailed"
           @show-models="getModel"
-          @hide-models="resetModels"
+          @hide-models="hideModels"
+          @change-page="page => brandsPage = page"
         ></n-table>
 
-        <n-table v-if="models.length > 0"
-          title="Modelos" 
+        <!-- Tabela Modelos -->
+        <n-table v-if="showModels"
+          :title="`Modelos (${selectedBrand})`" 
           header="Modelo" 
-          :items="models"
+          :items="modelsContent"
+          :rows="rowsPerPage"
+          :total-items="models.length"
           :loading="loadingModels"
           :loading-failed="getModelsFailed"
+          @change-page="page => modelsPage = page"
         ></n-table>
       </n-layout>
     </v-app>
