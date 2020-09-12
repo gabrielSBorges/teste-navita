@@ -60,14 +60,16 @@ new Vue({
       .then(content => {
         this.brands = content.data
       })
-      .catch(error => {
+      .catch(() => {
         this.getBrandsFailed = true
       })
     },
 
-    getModel(id, name) {
+    getModels(id, name) {
       this.loadingModels = true
-
+      
+      this.modelsPage = 1
+      
       this.showModels = true
 
       this.selectedBrand = name
@@ -76,18 +78,18 @@ new Vue({
 
       axios.get(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${id}/modelos`)
       .then(content => {
-        let modelos = content.data.modelos
+        let models = content.data.modelos
 
-        modelos.forEach(modelo => delete modelo.codigo)
+        models.forEach(modelo => delete modelo.codigo)
 
-        this.models = modelos
+        this.models = models
       })
-      .catch(error => {
+      .catch(() => {
         this.getModelsFailed = true
       })
     },
 
-    hideModels() {
+    resetModelsTable() {
       this.showModels = false
       this.models = []
       this.getModelsFailed = false
@@ -95,14 +97,12 @@ new Vue({
 
     setPageContent(array, page, loading) {
       let content = array.slice(0)
-
+      
       if (content.length > 0) {
         content = content.slice((page * this.rowsPerPage) - this.rowsPerPage, page * this.rowsPerPage)
+
+        this[loading] = false
       }
-
-      console.log(loading)
-
-      this[loading] = false
 
       return content
     }

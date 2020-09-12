@@ -24,12 +24,15 @@ export default {
       const totalItems = this.totalItems
       const rows = this.rows
 
+      this.page = 1
+
       if (totalItems < rows) {
         return 0
       }
       else {
         return Math.ceil(totalItems / rows)
       }
+      
     }
   },
   methods: {

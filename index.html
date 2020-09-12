@@ -28,8 +28,8 @@
           :total-items="brands.length"
           :loading="loadingBrands"
           :loading-failed="getBrandsFailed"
-          @show-models="getModel"
-          @hide-models="hideModels"
+          @show-models="getModels"
+          @hide-models="resetModelsTable"
           @change-page="page => brandsPage = page"
         ></n-table>
 
