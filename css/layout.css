@@ -5,3 +5,8 @@
 #header {
   box-shadow: 0 0 10px 3px rgba(58, 59, 69, .15);
 }
+
+.v-toolbar__content {
+  padding-left: 0;
+  padding-right: 0;
+}

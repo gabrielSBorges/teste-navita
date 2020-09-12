@@ -1,8 +1,10 @@
 export default {
   template: /*html*/`
     <div>
-      <v-app-bar app clipped-left dense id="header">
-        <span class="primary--text ml-3">Navita</span>
+      <v-app-bar app dense id="header">
+        <v-container>
+          <span class="primary--text">Navita</span>
+        </v-container>
       </v-app-bar>
   
       <v-main class="mb-12">
