@@ -11,7 +11,7 @@ export default {
         </v-container>
       </v-main>
   
-      <v-footer app padless>
+      <v-footer padless absolute bottom>
         <v-card flat tile class="flex text-center">
           <v-card-text>Copyright &copy Navita 2020</v-card-text>
         </v-card>
