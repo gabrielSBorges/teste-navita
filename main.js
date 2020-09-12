@@ -65,7 +65,7 @@ new Vue({
       })
     },
 
-    getModel(id, name) {
+    getModels(id, name) {
       this.loadingModels = true
 
       this.showModels = true
@@ -76,11 +76,11 @@ new Vue({
 
       axios.get(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${id}/modelos`)
       .then(content => {
-        let modelos = content.data.modelos
+        let models = content.data.modelos
 
-        modelos.forEach(modelo => delete modelo.codigo)
+        models.forEach(modelo => delete modelo.codigo)
 
-        this.models = modelos
+        this.models = models
       })
       .catch(() => {
         this.getModelsFailed = true
@@ -98,6 +98,7 @@ new Vue({
 
       if (content.length > 0) {
         content = content.slice((page * this.rowsPerPage) - this.rowsPerPage, page * this.rowsPerPage)
+        
         this[loading] = false
       }
 
