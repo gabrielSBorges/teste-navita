@@ -67,7 +67,9 @@ new Vue({
 
     getModels(id, name) {
       this.loadingModels = true
-
+      
+      this.modelsPage = 1
+      
       this.showModels = true
 
       this.selectedBrand = name
@@ -87,7 +89,7 @@ new Vue({
       })
     },
 
-    hideModels() {
+    resetModelsTable() {
       this.showModels = false
       this.models = []
       this.getModelsFailed = false
@@ -95,10 +97,10 @@ new Vue({
 
     setPageContent(array, page, loading) {
       let content = array.slice(0)
-
+      
       if (content.length > 0) {
         content = content.slice((page * this.rowsPerPage) - this.rowsPerPage, page * this.rowsPerPage)
-        
+
         this[loading] = false
       }
 

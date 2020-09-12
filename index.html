@@ -29,7 +29,7 @@
           :loading="loadingBrands"
           :loading-failed="getBrandsFailed"
           @show-models="getModels"
-          @hide-models="hideModels"
+          @hide-models="resetModelsTable"
           @change-page="page => brandsPage = page"
         ></n-table>
 
