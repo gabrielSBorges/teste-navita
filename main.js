@@ -60,7 +60,7 @@ new Vue({
       .then(content => {
         this.brands = content.data
       })
-      .catch(error => {
+      .catch(() => {
         this.getBrandsFailed = true
       })
     },
@@ -82,7 +82,7 @@ new Vue({
 
         this.models = modelos
       })
-      .catch(error => {
+      .catch(() => {
         this.getModelsFailed = true
       })
     },
@@ -98,11 +98,8 @@ new Vue({
 
       if (content.length > 0) {
         content = content.slice((page * this.rowsPerPage) - this.rowsPerPage, page * this.rowsPerPage)
+        this[loading] = false
       }
-
-      console.log(loading)
-
-      this[loading] = false
 
       return content
     }
