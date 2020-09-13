@@ -1,5 +1,5 @@
 # teste-navita
-Teste técnico proposto pela Navita
+Teste técnico proposto pela Navita. Uma tela que lista as marcas e modelos de veículos em duas tabelas, usando como base uma API da tabela FIPE.
 
-## Obervações:
-Necessário rodar em servidor local.
+### Observações:
+Necessário rodar em um servidor local.
