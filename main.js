@@ -68,8 +68,6 @@ new Vue({
     getModels(id, name) {
       this.loadingModels = true
       
-      this.modelsPage = 1
-      
       this.showModels = true
 
       this.selectedBrand = name

@@ -27,7 +27,7 @@ export default {
       this.page = 1
 
       if (totalItems < rows) {
-        return 0
+        return 1
       }
       else {
         return Math.ceil(totalItems / rows)
@@ -95,7 +95,7 @@ export default {
       <v-divider></v-divider>
 
       <!-- Paginação -->
-      <v-card outlined color="normal" class="table-footer text-center pa-3" v-show="totalPages > 0">
+      <v-card outlined color="normal" class="table-footer text-center pa-3" v-show="!loading">
         <v-pagination
           v-model="page"
           :length="totalPages"
